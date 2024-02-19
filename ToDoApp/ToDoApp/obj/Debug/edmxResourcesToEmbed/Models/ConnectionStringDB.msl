@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ToDoModelConnectionStringDBStoreContainer" CdmEntityContainer="ToDoEntitiesConnectionStringDB">
+    <EntitySetMapping Name="islers">
+      <EntityTypeMapping TypeName="ToDoModelConnectionStringDB.isler">
+        <MappingFragment StoreEntitySet="isler">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="is_adi" ColumnName="is_adi" />
+          <ScalarProperty Name="olusturuldugu_tarih" ColumnName="olusturuldugu_tarih" />
+          <ScalarProperty Name="durum" ColumnName="durum" />
+          <ScalarProperty Name="tamamlandigi_tarih" ColumnName="tamamlandigi_tarih" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="kullanicilars">
+      <EntityTypeMapping TypeName="ToDoModelConnectionStringDB.kullanicilar">
+        <MappingFragment StoreEntitySet="kullanicilar">
+          <ScalarProperty Name="sifre" ColumnName="sifre" />
+          <ScalarProperty Name="kullanici_adi" ColumnName="kullanici_adi" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

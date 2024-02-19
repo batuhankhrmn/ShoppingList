@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "TamamlanmisIsListele";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--Content Header (Page Header)-->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h2>Tamamlanmış İşlerim</h2>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Content Header Ending (Page Header)-->
+<!--İşlerin Listesi-->
+<div class="card-body">
+    <table id="example2" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>İş Adı</th>
+                <th>Durum</th>
+                <th>Oluşturulma Tarihi</th>
+                <th>Bitiş Tarihi</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ToDoApp.Models.isler item in ViewBag.isler)
+            {
+                string tamamlandigi_tarih;
+                string durumParametre = "";
+
+                if (item.tamamlandigi_tarih.ToString() == "")
+                {
+                    tamamlandigi_tarih = "-";
+                }
+                else
+                {
+                    tamamlandigi_tarih = item.tamamlandigi_tarih.ToString();
+                }
+
+                if (Convert.ToInt32(item.durum) == 1)
+                {
+                    item.durum = "Devam Ediyor";
+                }
+                else
+                {
+                    item.durum = "Bitti";
+                    durumParametre = "disabled";
+                }
+                string TekrarAktif = "TekrarAktif" + item.id;
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.is_adi</td>
+                    <td>@item.durum</td>
+                    <td>@item.olusturuldugu_tarih</td>
+                    <td>@tamamlandigi_tarih</td>
+                    <td><a href="/Home/TekrarAktif/@item.id" class="btn btn-warning">İşi Tekrar Aktif Et</a></td>                    
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>No</th>
+                <th>İş Adı</th>
+                <th>Durum</th>
+                <th>Oluşturulma Tarihi</th>
+                <th>Bitiş Tarihi</th>
+                <th>İşlemler</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<!--İşlerin Listesi-->

@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "Listele";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--Content Header (Page Header)-->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h2>Devam Eden İşlerim</h2>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Content Header Ending (Page Header)-->
+<!--İş Ekle Modal'ı-->
+<div class="card-body">
+    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modal-default">
+        <i class="fa-solid fa-plus"></i>  Yeni İş Ekle
+    </button>
+</div>
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Yeni İş Ekle</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/Home/Kaydet" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputIsinAdi">İşin Adı</label>
+                        <input type="text" name="txtIsinAdi" class="form-control" id="exampleInputIsinAdi" placeholder="Lütfen İşinizi Giriniz">
+                    </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                </form>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!--İş Ekle Modal'ı-->
+<!--İşlerin Listesi-->
+<div class="card-body">
+    <table id="example2" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>İş Adı</th>
+                <th>Durum</th>
+                <th>Oluşturulma Tarihi</th>
+                <th>Bitiş Tarihi</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ToDoApp.Models.isler item in ViewBag.isler)
+            {
+                string tamamlandigi_tarih;
+                string durumParametre = "";
+
+                if (item.tamamlandigi_tarih.ToString() == "")
+                {
+                    tamamlandigi_tarih = "-";
+                }
+                else
+                {
+                    tamamlandigi_tarih = item.tamamlandigi_tarih.ToString();
+                }
+
+                if (Convert.ToInt32(item.durum) == 1)
+                {
+                    item.durum = "Devam Ediyor";
+                }
+                else
+                {
+                    item.durum = "Bitti";
+                    durumParametre = "disabled";
+                }
+                string Sil = "Sil" + item.id;
+                string Kapat = "Kapat" + item.id;
+                string Duzenle = "Duzenle" + item.id;
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.is_adi</td>
+                    <td>@item.durum</td>
+                    <td>@item.olusturuldugu_tarih</td>
+                    <td>@tamamlandigi_tarih</td>
+                    <td>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#@Sil"><i class="fa fa-eraser"></i> Sil</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#@Duzenle"><i class="fa fa-save"></i>Düzenle</button>
+                        <button @durumParametre class="btn btn-success" data-toggle="modal" data-target="#@Kapat"><i class="fa fa-check"></i> İşi Kapat</button>
+                        <!--Sil Modal'ı-->
+                        <div class="modal fade" id="@Sil">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Silme İşlemi   <i class="fa-solid fa-exclamation"></i></h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputIsinAdi">Silmek istediğinize emin misiniz!</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <a href="/Home/Sil/@item.id" class="btn btn-danger"><i class="fa fa-eraser"></i> Sil</a>
+                                        <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close"></i> Kapat</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!--Sil Modal'ı-->
+                        <!--Kapat Modal'ı-->
+                        <div class="modal fade" id="@Kapat">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Kapatma İşlemi   <i class="fa-solid fa-exclamation"></i></h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputIsinAdi">Kapatmak istediğinize emin misiniz!</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <a href="/Home/IsKapat/@item.id" class="btn btn-success"><i class="fa fa-check"></i> Kapat</a>
+                                        <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close"></i> Kapat</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!--Kapat Modal'ı-->
+                        <!--Düzenle Modal'ı-->
+                        <div class="modal fade" id="@Duzenle">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Düzenle İşlemi</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="/Home/Duzenle" method="post">
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="exampleInputIsinAdi">İşin Adı</label>
+                                                <input type="text" name="id" hidden value="@item.id" />
+                                                <input type="text" name="txtIsinAdi" value="@item.is_adi" class="form-control" id="txtIsinAdi" placeholder="Lütfen işi yazın">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Kaydet</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Kapat</button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!--Düzenle Modal'ı-->
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>No</th>
+                <th>İş Adı</th>
+                <th>Durum</th>
+                <th>Oluşturulma Tarihi</th>
+                <th>Bitiş Tarihi</th>
+                <th>İşlemler</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<!--İşlerin Listesi-->
