@@ -1,23 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ToDoModelConnectionStringDBStoreContainer" CdmEntityContainer="ToDoEntitiesConnectionStringDB">
-    <EntitySetMapping Name="islers">
-      <EntityTypeMapping TypeName="ToDoModelConnectionStringDB.isler">
-        <MappingFragment StoreEntitySet="isler">
+  <EntityContainerMapping StorageEntityContainer="ShoppingListModelStoreContainer" CdmEntityContainer="ShoppingListEntities">
+    <EntitySetMapping Name="kullanicilar">
+      <EntityTypeMapping TypeName="ShoppingListModel.kullanicilar">
+        <MappingFragment StoreEntitySet="kullanicilar">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="is_adi" ColumnName="is_adi" />
-          <ScalarProperty Name="olusturuldugu_tarih" ColumnName="olusturuldugu_tarih" />
-          <ScalarProperty Name="durum" ColumnName="durum" />
-          <ScalarProperty Name="tamamlandigi_tarih" ColumnName="tamamlandigi_tarih" />
+          <ScalarProperty Name="kullanici_adi" ColumnName="kullanici_adi" />
+          <ScalarProperty Name="sifre" ColumnName="sifre" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="kullanicilars">
-      <EntityTypeMapping TypeName="ToDoModelConnectionStringDB.kullanicilar">
-        <MappingFragment StoreEntitySet="kullanicilar">
-          <ScalarProperty Name="sifre" ColumnName="sifre" />
-          <ScalarProperty Name="kullanici_adi" ColumnName="kullanici_adi" />
-          <ScalarProperty Name="id" ColumnName="id" />
+    <EntitySetMapping Name="urunler">
+      <EntityTypeMapping TypeName="ShoppingListModel.urunler">
+        <MappingFragment StoreEntitySet="urunler">
+          <ScalarProperty Name="urun_id" ColumnName="urun_id" />
+          <ScalarProperty Name="urun_adi" ColumnName="urun_adi" />
+          <ScalarProperty Name="urun_adet" ColumnName="urun_adet" />
+          <ScalarProperty Name="olusturuldugu_tarih" ColumnName="olusturuldugu_tarih" />
+          <ScalarProperty Name="durum" ColumnName="durum" />
+          <ScalarProperty Name="tamamlandigi_tarih" ColumnName="tamamlandigi_tarih" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

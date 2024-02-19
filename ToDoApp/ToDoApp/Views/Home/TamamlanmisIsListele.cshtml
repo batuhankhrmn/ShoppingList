@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h2>Tamamlanmış İşlerim</h2>
+                <h2>Alınmış Ürünler</h2>
             </div>
         </div>
     </div>
@@ -21,7 +21,8 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>İş Adı</th>
+                <th>Ürün Adı</th>
+                <th>Ürün Adet</th>
                 <th>Durum</th>
                 <th>Oluşturulma Tarihi</th>
                 <th>Bitiş Tarihi</th>
@@ -29,10 +30,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (ToDoApp.Models.isler item in ViewBag.isler)
+            @foreach (ToDoApp.Models.urunler item in ViewBag.urunler)
             {
                 string tamamlandigi_tarih;
-                string durumParametre = "";
 
                 if (item.tamamlandigi_tarih.ToString() == "")
                 {
@@ -50,23 +50,24 @@
                 else
                 {
                     item.durum = "Bitti";
-                    durumParametre = "disabled";
                 }
-                string TekrarAktif = "TekrarAktif" + item.id;
+                string TekrarAktif = "TekrarAktif" + item.urun_id;
                 <tr>
-                    <td>@item.id</td>
-                    <td>@item.is_adi</td>
+                    <td>@item.urun_id</td>
+                    <td>@item.urun_adi</td>
+                    <td>@item.urun_adet</td>
                     <td>@item.durum</td>
                     <td>@item.olusturuldugu_tarih</td>
                     <td>@tamamlandigi_tarih</td>
-                    <td><a href="/Home/TekrarAktif/@item.id" class="btn btn-warning">İşi Tekrar Aktif Et</a></td>                    
+                    <td><a href="/Home/TekrarAktif/@item.urun_id" class="btn btn-warning">Ürünü Tekrar Aktif Et</a></td>                    
                 </tr>
             }
         </tbody>
         <tfoot>
             <tr>
                 <th>No</th>
-                <th>İş Adı</th>
+                <th>Ürün Adı</th>
+                <th>Ürün Adet</th>
                 <th>Durum</th>
                 <th>Oluşturulma Tarihi</th>
                 <th>Bitiş Tarihi</th>

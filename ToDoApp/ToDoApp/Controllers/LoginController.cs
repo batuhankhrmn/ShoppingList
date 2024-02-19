@@ -10,14 +10,14 @@ namespace ToDoApp.Controllers
 {
     public class LoginController : Controller
     {
-        ToDoEntitiesConnectionStringDB db = new ToDoEntitiesConnectionStringDB();
+        ShoppingListEntities db = new ShoppingListEntities();
         public ActionResult Index()
         {
             return View();
         }
         public ActionResult Login(string kullaniciAdi, string sifre)
         {
-            var kullanici = db.kullanicilars.FirstOrDefault(x=> x.kullanici_adi == kullaniciAdi && x.sifre == sifre);
+            var kullanici = db.kullanicilar.FirstOrDefault(x => x.kullanici_adi == kullaniciAdi && x.sifre == sifre);
             if (kullanici != null)
             {
                 FormsAuthentication.SetAuthCookie(kullaniciAdi, false);

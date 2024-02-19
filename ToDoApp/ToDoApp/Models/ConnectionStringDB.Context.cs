@@ -13,10 +13,10 @@ namespace ToDoApp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ToDoEntitiesConnectionStringDB : DbContext
+    public partial class ShoppingListEntities : DbContext
     {
-        public ToDoEntitiesConnectionStringDB()
-            : base("name=ToDoEntitiesConnectionStringDB")
+        public ShoppingListEntities()
+            : base("name=ShoppingListEntities")
         {
         }
     
@@ -25,7 +25,7 @@ namespace ToDoApp.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<isler> islers { get; set; }
-        public virtual DbSet<kullanicilar> kullanicilars { get; set; }
+        public virtual DbSet<kullanicilar> kullanicilar { get; set; }
+        public virtual DbSet<urunler> urunler { get; set; }
     }
 }

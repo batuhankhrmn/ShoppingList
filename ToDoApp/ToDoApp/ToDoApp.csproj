@@ -148,10 +148,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ConnectionStringDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\isler.cs">
+    <Compile Include="Models\kullanicilar.cs">
       <DependentUpon>ConnectionStringDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\kullanicilar.cs">
+    <Compile Include="Models\urunler.cs">
       <DependentUpon>ConnectionStringDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

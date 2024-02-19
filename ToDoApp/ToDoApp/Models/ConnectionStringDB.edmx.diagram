@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="de74ab2fc4644a5181ee226eee91ecb3" Name="Diagram1">
-        <EntityTypeShape EntityType="ToDoModelConnectionStringDB.isler" Width="3.25" PointX="1.875" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ToDoModelConnectionStringDB.kullanicilar" Width="1.5" PointX="7.125" PointY="1.125" />
+      <Diagram DiagramId="9f4c503866d441b0be2475145d8d922c" Name="Diagram1">
+        <EntityTypeShape EntityType="ShoppingListModel.kullanicilar" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingListModel.urunler" Width="1.5" PointX="3.5" PointY="0.875" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

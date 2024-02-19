@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h2>Devam Eden İşlerim</h2>
+                <h2>Alınacak Ürünler</h2>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
 <!--İş Ekle Modal'ı-->
 <div class="card-body">
     <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modal-default">
-        <i class="fa-solid fa-plus"></i>  Yeni İş Ekle
+        <i class="fa-solid fa-plus"></i>  Yeni Ürün Ekle
     </button>
 </div>
 
@@ -26,7 +26,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Yeni İş Ekle</h4>
+                <h4 class="modal-title">Yeni Ürün Ekle</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -34,8 +34,10 @@
             <div class="modal-body">
                 <form action="/Home/Kaydet" method="post">
                     <div class="form-group">
-                        <label for="exampleInputIsinAdi">İşin Adı</label>
-                        <input type="text" name="txtIsinAdi" class="form-control" id="exampleInputIsinAdi" placeholder="Lütfen İşinizi Giriniz">
+                        <label for="exampleInputUrunAdi">Ürün Adı</label>
+                        <input type="text" name="txtUrunAdi" class="form-control" id="exampleInputUrunAdi" placeholder="Lütfen Ürünü Giriniz">
+                        <label for="exampleInputUrunAdet">Ürün Adeti</label>
+                        <input type="text" name="txtUrunAdet" class="form-control" id="exampleInputUrunAdet" placeholder="Lütfen Ürünün Adetini Giriniz">
                     </div>
             </div>
             <div class="modal-footer justify-content-between">
@@ -55,7 +57,8 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>İş Adı</th>
+                <th>Ürün Adı</th>
+                <th>Ürün Adeti</th>
                 <th>Durum</th>
                 <th>Oluşturulma Tarihi</th>
                 <th>Bitiş Tarihi</th>
@@ -63,8 +66,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (ToDoApp.Models.isler item in ViewBag.isler)
-            {
+            @foreach (ToDoApp.Models.urunler item in ViewBag.urunler)
+            {               
+
                 string tamamlandigi_tarih;
                 string durumParametre = "";
 
@@ -86,19 +90,20 @@
                     item.durum = "Bitti";
                     durumParametre = "disabled";
                 }
-                string Sil = "Sil" + item.id;
-                string Kapat = "Kapat" + item.id;
-                string Duzenle = "Duzenle" + item.id;
+                string Sil = "Sil" + item.urun_id;
+                string Kapat = "Kapat" + item.urun_id;
+                string Duzenle = "Duzenle" + item.urun_id;
                 <tr>
-                    <td>@item.id</td>
-                    <td>@item.is_adi</td>
+                    <td>@item.urun_id</td>
+                    <td>@item.urun_adi</td>
+                    <td>@item.urun_adet</td>
                     <td>@item.durum</td>
                     <td>@item.olusturuldugu_tarih</td>
                     <td>@tamamlandigi_tarih</td>
                     <td>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#@Sil"><i class="fa fa-eraser"></i> Sil</button>
                         <button class="btn btn-primary" data-toggle="modal" data-target="#@Duzenle"><i class="fa fa-save"></i>Düzenle</button>
-                        <button @durumParametre class="btn btn-success" data-toggle="modal" data-target="#@Kapat"><i class="fa fa-check"></i> İşi Kapat</button>
+                        <button @durumParametre class="btn btn-success" data-toggle="modal" data-target="#@Kapat"><i class="fa fa-check"></i> Ürünü Kapat</button>
                         <!--Sil Modal'ı-->
                         <div class="modal fade" id="@Sil">
                             <div class="modal-dialog">
@@ -111,11 +116,11 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="exampleInputIsinAdi">Silmek istediğinize emin misiniz!</label>
+                                            <label for="exampleInputUrunAdi">Silmek istediğinize emin misiniz!</label>
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                        <a href="/Home/Sil/@item.id" class="btn btn-danger"><i class="fa fa-eraser"></i> Sil</a>
+                                        <a href="/Home/Sil/@item.urun_id" class="btn btn-danger"><i class="fa fa-eraser"></i> Sil</a>
                                         <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close"></i> Kapat</button>
                                     </div>
                                 </div>
@@ -140,7 +145,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                        <a href="/Home/IsKapat/@item.id" class="btn btn-success"><i class="fa fa-check"></i> Kapat</a>
+                                        <a href="/Home/IsKapat/@item.urun_id" class="btn btn-success"><i class="fa fa-check"></i> Kapat</a>
                                         <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close"></i> Kapat</button>
                                     </div>
                                 </div>
@@ -162,9 +167,9 @@
                                     <form action="/Home/Duzenle" method="post">
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <label for="exampleInputIsinAdi">İşin Adı</label>
-                                                <input type="text" name="id" hidden value="@item.id" />
-                                                <input type="text" name="txtIsinAdi" value="@item.is_adi" class="form-control" id="txtIsinAdi" placeholder="Lütfen işi yazın">
+                                                <label for="exampleInputUrunAdi">Ürün Adı</label>
+                                                <input type="text" name="id" hidden value="@item.urun_id" />
+                                                <input type="text" name="txtUrunAdi" value="@item.urun_adi" class="form-control" id="txtUrunAdi" placeholder="Lütfen ürünü yazın">
                                             </div>
                                         </div>
                                         <div class="modal-footer justify-content-between">
@@ -186,7 +191,8 @@
         <tfoot>
             <tr>
                 <th>No</th>
-                <th>İş Adı</th>
+                <th>Ürün Adı</th>
+                <th>Ürün Adet</th>
                 <th>Durum</th>
                 <th>Oluşturulma Tarihi</th>
                 <th>Bitiş Tarihi</th>

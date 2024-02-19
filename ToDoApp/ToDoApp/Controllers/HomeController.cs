@@ -11,41 +11,40 @@ namespace ToDoApp.Controllers
 {
     public class HomeController : Controller
     {
+        ShoppingListEntities db = new ShoppingListEntities();
         [Authorize]
         public ActionResult Listele()
         {
-            ToDoEntitiesConnectionStringDB db = new ToDoEntitiesConnectionStringDB();
-            //ViewBag.isler = db.islers;
-            ViewBag.sayfa = "acikIs"; 
-            ViewBag.isler = db.islers.Where(g => g.durum == "1").ToList();
+            ViewBag.sayfa = "acikIs";
+            ViewBag.urunler = db.urunler.Where(g => g.durum == "1").ToList();
 
             return View();
         }
         [Authorize]
         public ActionResult TamamlanmisIsListele()
         {
-            ToDoEntitiesConnectionStringDB db = new ToDoEntitiesConnectionStringDB();
             //ViewBag.isler = db.islers;
             ViewBag.sayfa = "kapaliIs";
-            ViewBag.isler = db.islers.Where(g => g.durum == "0").ToList();
+            ViewBag.urunler = db.urunler.Where(g => g.durum == "0").ToList();
 
             return View();
         }
         [Authorize]
-        public ActionResult Kaydet(string txtIsinAdi)
+        public ActionResult Kaydet(string txtUrunAdi, string txtUrunAdet)
         {
-            string is_adi = txtIsinAdi.ToString();
+            string urun_adi = txtUrunAdi.ToString();
+            string urun_adet = txtUrunAdet.ToString();
             DateTime olusturuldugu_tarih = DateTime.Now;
             string durum = "1";
 
-            ToDoEntitiesConnectionStringDB db = new ToDoEntitiesConnectionStringDB();
-            var yeniIs = new isler
+            var yeniUrun = new urunler
             {
-                is_adi = is_adi,
+                urun_adi = urun_adi,
+                urun_adet = urun_adet,
                 durum = durum,
                 olusturuldugu_tarih = olusturuldugu_tarih,
             };
-            db.islers.Add(yeniIs);
+            db.urunler.Add(yeniUrun);
             db.SaveChanges();
 
             return RedirectToAction("Listele");
@@ -53,20 +52,18 @@ namespace ToDoApp.Controllers
         [Authorize]
         public ActionResult Sil(int id)
         {
-            ToDoEntitiesConnectionStringDB db = new ToDoEntitiesConnectionStringDB();
-            isler silinecek = db.islers.FirstOrDefault(x => x.id == id);
-            db.islers.Remove(silinecek);
+            urunler silinecek = db.urunler.FirstOrDefault(x => x.urun_id == id);
+            db.urunler.Remove(silinecek);
             db.SaveChanges();
             return RedirectToAction("Listele");
         }
         [Authorize]
-        public ActionResult IsKapat(int id)
+        public ActionResult UrunKapat(int id)
         {
-            ToDoEntitiesConnectionStringDB db = new ToDoEntitiesConnectionStringDB();
-            isler kapatilacakIs = db.islers.FirstOrDefault(x => x.id == id);
+            urunler kapatilacakUrun = db.urunler.FirstOrDefault(x => x.urun_id == id);
 
-            kapatilacakIs.tamamlandigi_tarih = DateTime.Now;
-            kapatilacakIs.durum = "0";
+            kapatilacakUrun.tamamlandigi_tarih = DateTime.Now;
+            kapatilacakUrun.durum = "0";
             db.SaveChanges();
 
             return RedirectToAction("Listele");
@@ -74,19 +71,17 @@ namespace ToDoApp.Controllers
         [Authorize]
         public ActionResult TekrarAktif(int id)
         {
-            ToDoEntitiesConnectionStringDB db = new ToDoEntitiesConnectionStringDB();
-            isler tekrarAktif = db.islers.FirstOrDefault(x => x.id == id);
+            urunler tekrarAktif = db.urunler.FirstOrDefault(x => x.urun_id == id);
             tekrarAktif.tamamlandigi_tarih = null;
             tekrarAktif.durum = "1";
             db.SaveChanges();
             return RedirectToAction("Listele");
         }
         [Authorize]
-        public ActionResult Duzenle(int id, string txtIsinAdi)
+        public ActionResult Duzenle(int id, string txtUrunAdi)
         {
-            ToDoEntitiesConnectionStringDB db = new ToDoEntitiesConnectionStringDB();
-            isler duzenlenecekIs = db.islers.FirstOrDefault(x => x.id == id);
-            duzenlenecekIs.is_adi = txtIsinAdi;
+            urunler duzenlenecekUrun = db.urunler.FirstOrDefault(x => x.urun_id == id);
+            duzenlenecekUrun.urun_adi = txtUrunAdi;
             db.SaveChanges();
             return RedirectToAction("Listele");
         }
