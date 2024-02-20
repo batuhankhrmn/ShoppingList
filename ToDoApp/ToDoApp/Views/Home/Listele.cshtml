@@ -67,10 +67,11 @@
         </thead>
         <tbody>
             @foreach (ToDoApp.Models.urunler item in ViewBag.urunler)
-            {               
-
+            {
                 string tamamlandigi_tarih;
                 string durumParametre = "";
+
+
 
                 if (item.tamamlandigi_tarih.ToString() == "")
                 {
@@ -145,7 +146,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                        <a href="/Home/IsKapat/@item.urun_id" class="btn btn-success"><i class="fa fa-check"></i> Kapat</a>
+                                        <a href="/Home/UrunKapat/@item.urun_id" class="btn btn-success"><i class="fa fa-check"></i> Kapat</a>
                                         <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close"></i> Kapat</button>
                                     </div>
                                 </div>
@@ -170,6 +171,9 @@
                                                 <label for="exampleInputUrunAdi">Ürün Adı</label>
                                                 <input type="text" name="id" hidden value="@item.urun_id" />
                                                 <input type="text" name="txtUrunAdi" value="@item.urun_adi" class="form-control" id="txtUrunAdi" placeholder="Lütfen ürünü yazın">
+                                                <label for="exampleInputUrunAdi">Ürün Adeti</label>
+                                                <input type="text" name="id" hidden value="@item.urun_id" />
+                                                <input type="text" name="txtUrunAdet" value="@item.urun_adet" class="form-control" id="txtUrunAdet" placeholder="Lütfen ürünün adetini yazın">
                                             </div>
                                         </div>
                                         <div class="modal-footer justify-content-between">

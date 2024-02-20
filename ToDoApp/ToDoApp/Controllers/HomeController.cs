@@ -78,10 +78,11 @@ namespace ToDoApp.Controllers
             return RedirectToAction("Listele");
         }
         [Authorize]
-        public ActionResult Duzenle(int id, string txtUrunAdi)
+        public ActionResult Duzenle(int id, string txtUrunAdi, string txtUrunAdet)
         {
             urunler duzenlenecekUrun = db.urunler.FirstOrDefault(x => x.urun_id == id);
             duzenlenecekUrun.urun_adi = txtUrunAdi;
+            duzenlenecekUrun.urun_adet = txtUrunAdet;
             db.SaveChanges();
             return RedirectToAction("Listele");
         }
